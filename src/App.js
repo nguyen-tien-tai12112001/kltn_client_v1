@@ -21,6 +21,7 @@ import SignLayout from './layouts/SignLayout';
 import { cartActions } from './store/cart';
 import { commonActions } from './store/common';
 import { notificationActions } from './store/notification';
+import Success from './pages/Success';
 
 function App() {
   const dispatch = useDispatch();
@@ -213,11 +214,12 @@ function App() {
       </div> */}
       <Switch>
         <Route path="/success">
-          <Result
+          {/* <Result
             status="success"
             title="Đặt hàng thành công"
             subTitle={`Đơn hàng của bạn đang được xác nhận. Cảm ơn bạn đã tin tưởng ${configs?.page_name}.`}
-          />
+          /> */}
+          <Success />
         </Route>
         <Route path="/fail_verify">
           <ExpriedEmail
