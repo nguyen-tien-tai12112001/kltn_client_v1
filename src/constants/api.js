@@ -1,5 +1,7 @@
-export const baseURL = 'http://localhost:7172/api/v1';
-export const ENDPOINT = 'http://localhost:7172';
+export const baseURL = 'https://kltn-api-v1.herokuapp.com/api/v1';
+// export const baseURL = 'http://localhost:7172/api/v1';
+export const ENDPOINT = 'https://kltn-api-v1.herokuapp.com';
+// export const ENDPOINT = 'http://localhost:7172';
 
 export const GHN_URL =
   'https://dev-online-gateway.ghn.vn/shiip/public-api/master-data';
@@ -15,4 +17,4 @@ export const INLAND = 'INLAND';
 export const DEFAULT = 'DEFAULT';
 export const GOOGLE = 'GOOGLE';
 
-export const URL_CLIENT_DEPLOYMENT = '';
+export const URL_CLIENT_DEPLOYMENT = 'https://kltn-client-v1.vercel.app';

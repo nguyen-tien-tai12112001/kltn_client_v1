@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 // import { setLoadingAction } from '../../Store/Reducer/loadingReducer';
 import AUTH_API from '../../api/auth';
-import { STATUS_OK, STATUS_FAIL } from '../../constants/api';
+import { STATUS_OK, STATUS_FAIL, ENDPOINT } from '../../constants/api';
 import { commonActions, initState } from '../../store/common';
 // import { splitFullName } from "../../../utils";
 import { Button, Checkbox, Divider, Form, Input, notification } from 'antd';
@@ -25,22 +25,11 @@ function ActivationEmail() {
       // dispatch(setLoadingAction(true));
       const fetchActivationEmail = async () => {
         try {
-          const res = await axios.post(
-            `http://localhost:7172/api/v1/auth/activate`,
-            {
-              activation_token,
-            }
-          );
-          console.log(
-            '🚀 ~ file: index.js ~ line 34 ~ fetchActivationEmail ~ res',
-            res
-          );
+          const res = await axios.post(`${ENDPOINT}/api/v1/auth/activate`, {
+            activation_token,
+          });
 
           const userInfoResponse = await AUTH_API.verify(res.data.data.token);
-          console.log(
-            '🚀 ~ file: index.js ~ line 35 ~ fetchActivationEmail ~ userInfoResponse',
-            userInfoResponse
-          );
 
           if (userInfoResponse.status === STATUS_FAIL)
             return notification.error({
