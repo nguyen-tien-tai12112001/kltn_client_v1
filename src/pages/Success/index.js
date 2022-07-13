@@ -23,10 +23,10 @@ const Success = () => {
             order@example.com
           </a>
         </p>
-        <Link href="/">
-          <button type="button" width="300px" className="btn">
-            Continue Shopping
-          </button>
+        <Link href="/" className="btn" style={{ width: '300px' }}>
+          {/* <button type="button" width="300px" className="btn"> */}
+          Continue Shopping
+          {/* </button> */}
         </Link>
       </div>
     </div>
