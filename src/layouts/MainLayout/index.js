@@ -26,8 +26,8 @@ const MainLayout = () => {
       {userInfo && userInfo.role === 2 ? <AppChat /> : ''}
       {userInfo && userInfo.role === 2 ? (
         <MessengerCustomerChat
-          pageId="109329735031695"
-          appId="1134658387110866"
+          pageId="109746535131207"
+          appId="2639083176221882"
         />
       ) : (
         ''

@@ -526,7 +526,7 @@ const Header = () => {
                       <Col xl={5} lg={5} md={5} sm={5} xs={5}>
                         <div className="logo">
                           <Link className="logo_link" to="/">
-                            <img src="/images/logo.png" alt="logo" />
+                            <img src="/images/logo_taka.png" alt="logo" />
                           </Link>
                         </div>
                       </Col>

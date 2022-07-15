@@ -29,7 +29,7 @@ const Product = ({ data }) => {
             <img src={data.thumbnail_url} alt="product" />
           </div>
           <div className="extra">
-            <img src="/images/extra-product.png" alt="extra" />
+            {/* <img src="/images/extra-product.png" alt="extra" /> */}
           </div>
         </div>
         <div className="product_component__info">
