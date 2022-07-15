@@ -37,8 +37,8 @@ export default function ScrollToTop() {
     <div
       style={{
         position: 'fixed',
-        right: '70px',
-        bottom: '20px',
+        right: '88px',
+        bottom: '22px',
         cursor: 'pointer',
         zIndex: 99,
       }}
