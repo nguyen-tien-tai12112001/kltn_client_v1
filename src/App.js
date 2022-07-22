@@ -214,12 +214,8 @@ function App() {
       </div> */}
       <Switch>
         <Route path="/success">
-          {/* <Result
-            status="success"
-            title="Đặt hàng thành công"
-            subTitle={`Đơn hàng của bạn đang được xác nhận. Cảm ơn bạn đã tin tưởng ${configs?.page_name}.`}
-          /> */}
-          <Success />
+          <Result />
+          {/* <Success /> */}
         </Route>
         <Route path="/fail_verify">
           <ExpriedEmail

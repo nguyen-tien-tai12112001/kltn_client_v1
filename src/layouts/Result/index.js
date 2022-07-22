@@ -1,14 +1,15 @@
-import { notification, Result } from 'antd';
-import { useEffect } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { notification } from 'antd';
 import queryString from 'query-string';
+import React, { useEffect } from 'react';
+import { BsBagCheckFill } from 'react-icons/bs';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import CART_API from '../../api/cart';
 import ORDER_API from '../../api/order';
 import { STATUS_FAIL } from '../../constants/api';
-import { getSalePrice } from '../../utils';
-import CART_API from '../../api/cart';
 import { cartActions } from '../../store/cart';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { getSalePrice, runFireworks } from '../../utils';
+import './styles.scss';
 const ResultPage = ({ status, title, subTitle }) => {
   const { cartItems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -16,6 +17,10 @@ const ResultPage = ({ status, title, subTitle }) => {
   const history = useHistory();
 
   const query = location.search;
+  useEffect(() => {
+    runFireworks();
+  }, []);
+
   useEffect(() => {
     const { addressPayload, data, orderItems } = JSON.parse(
       localStorage.getItem('dataOrder')
@@ -99,13 +104,25 @@ const ResultPage = ({ status, title, subTitle }) => {
     handle();
   }, [query]);
   return (
-    <div id="result">
-      <Result
-        status={status}
-        title={title}
-        subTitle={subTitle}
-        extra={<Link to="/">Tiếp tục mua sắm</Link>}
-      />
+    <div className="success-wrapper">
+      <div className="success">
+        <p className="icon">
+          <BsBagCheckFill />
+        </p>
+        <h2>Thank you for your order!</h2>
+        <p className="email-msg">Check your email inbox for the receipt.</p>
+        <p className="description">
+          If you have any questions, please email
+          <a className="email" href="mailto:order@example.com">
+            order@example.com
+          </a>
+        </p>
+        <Link to="/">
+          <button type="button" width="300px" className="btn">
+            Continue Shopping
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };
