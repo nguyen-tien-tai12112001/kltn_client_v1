@@ -50,10 +50,18 @@ const getIsBought = (userId, productId) => {
   });
 };
 
+const sentimentAnalyst = (data) => {
+  return axiosClient({
+    method: 'POST',
+    url: `/ratings/sentiment`,
+    data,
+  });
+};
 const PRODUCT_API = {
   getOneProduct,
   queryProducts,
   rate,
+  sentimentAnalyst,
   queryRates,
   getIsBought,
   getProductImages,

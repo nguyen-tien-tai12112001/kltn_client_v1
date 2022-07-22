@@ -120,7 +120,7 @@ function Bank(props) {
                 >
                   Chúng tôi hợp tác với CyberSource để đảm bảo thông tin thẻ của
                   bạn được giữ an toàn
-                  <br /> và bảo mật. Shopee sẽ không có quyền truy cập vào thông
+                  <br /> và bảo mật. TAKA sẽ không có quyền truy cập vào thông
                   tin thẻ của bạn.
                 </p>
               </Tag>
@@ -185,7 +185,7 @@ function Bank(props) {
                   Địa chỉ thanh toán
                 </p>
                 <Form.Item style={{ marginBottom: '16px' }} label="Địa chỉ">
-                  <Input value="43-Bàu Tràm 1" />
+                  <Input value="" />
                 </Form.Item>
                 <Form.Item style={{ marginBottom: '16px' }} label="Mã bưu điện">
                   <Input />

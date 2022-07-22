@@ -76,8 +76,8 @@ const getReturnUrlPayPal = (query) => {
 const paymentByMoMo = (data) => {
   return axiosClient({
     method: 'POST',
-    data,
     url: `/orders/create_payment_momo`,
+    data,
   });
 };
 

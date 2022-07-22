@@ -340,20 +340,21 @@ const CheckoutPage = () => {
         });
 
         dispatch(cartActions.loadCart(newCartItems));
+
         const order = {
           app_id: config.app_id,
-          app_trans_id: `${moment().format('YYMMDD')}_${response.data._id}`, // translation missing: vi.docs.shared.sample_code.comments.app_trans_id
-          app_user: 'user123',
+          app_trans_id: `${moment().format('YYMMDD')}_${response.data._id}`,
+          app_user: userInfo.first_name + userInfo.last_name,
           app_time: Date.now(), // miliseconds
           item: JSON.stringify(items),
           embed_data: JSON.stringify(embed_data),
           amount: totalAmount,
-          description: `TIKI SHOP - Payment for the order #${response.data._id}`,
+          description: `TAKA SHOP - Payment for the order #${response.data._id}`,
           bank_code: '',
         };
 
         // appid|app_trans_id|appuser|amount|apptime|embeddata|item
-        const data1 =
+        const hmacinput =
           config.app_id +
           '|' +
           order.app_trans_id +
@@ -367,16 +368,14 @@ const CheckoutPage = () => {
           order.embed_data +
           '|' +
           order.item;
-        order.mac = CryptoJS.HmacSHA256(data1, config.key1).toString();
+
+        order.mac = CryptoJS.HmacSHA256(hmacinput, config.key1).toString();
 
         axios
           .post(config.endpoint, null, { params: order })
           .then((res) => {
-            // console.log(res.data);
             if (res.data.return_code === 1) {
               window.location.href = res.data.order_url;
-            } else {
-              // toast.warning('Có lỗi xảy ra, mời thực hiện lại!');
             }
           })
           .catch((err) => console.log(err));
@@ -444,10 +443,10 @@ const CheckoutPage = () => {
             duration: 3,
           });
         const dt = await ORDER_API.paymentByMoMo({
-          total_price: totalAmount,
+          total_price: totalAmount + service_total,
           _id: response.data._id,
         });
-        window.location.href = dt.payUrl;
+        // window.location.href = dt.payUrl;
         const orderItemsPayload = orderItems.map((item) => ({
           order_id: response.data._id,
           product: item.product._id,
@@ -482,6 +481,7 @@ const CheckoutPage = () => {
         });
 
         dispatch(cartActions.loadCart(newCartItems));
+        window.location.href = dt.payUrl;
       } catch (error) {
         console.log(error);
       }

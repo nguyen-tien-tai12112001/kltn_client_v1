@@ -26,7 +26,7 @@ const Bill = () => {
         if (response.status === STATUS_FAIL)
           return console.log(response.message);
 
-        setBills(response.data);
+        setBills(response.data.reverse());
         setLoading(false);
       } catch (error) {
         console.log(error.message);
@@ -70,7 +70,7 @@ const Bill = () => {
               if (response.status === STATUS_FAIL)
                 return console.log(response.message);
 
-              setBills(response.data);
+              setBills(response.data.reverse());
             } catch (error) {
               console.log(error.message);
             }
@@ -99,7 +99,7 @@ const Bill = () => {
               if (response.status === STATUS_FAIL)
                 return console.log(response.message);
 
-              setBills(response.data);
+              setBills(response.data.reverse());
             } catch (error) {
               console.log(error.message);
             }

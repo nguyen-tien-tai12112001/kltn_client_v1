@@ -49,6 +49,25 @@ const RatingDetailItem = ({ data }) => {
             <span className="user-timestamp">
               {moment(data?.createdAt).calendar()}
             </span>
+            {data.score < 0 ? (
+              <img
+                src="/svg/negative.svg"
+                alt="app-store"
+                style={{ width: '50px' }}
+              />
+            ) : data.score >= 1 ? (
+              <img
+                src="/svg/positive.svg"
+                alt="app-store"
+                style={{ width: '50px' }}
+              />
+            ) : (
+              <img
+                src="/svg/neutral.svg"
+                alt="app-store"
+                style={{ width: '50px' }}
+              />
+            )}
           </div>
         </div>
       </div>

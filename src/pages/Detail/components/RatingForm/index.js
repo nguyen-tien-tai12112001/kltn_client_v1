@@ -16,11 +16,17 @@ const RatingForm = ({ state, toggleModal, productId, onSuccess }) => {
 
   const handleSubmit = async () => {
     try {
+      const sentiment = await PRODUCT_API.sentimentAnalyst({
+        data: textValue.trim(),
+      });
+
+      const scoreSentiment = sentiment?.result?.score;
       const payload = {
         user: userInfo._id,
         product_id: productId,
         content: textValue.trim(),
         stars: starValue,
+        score: scoreSentiment,
       };
 
       if (!payload.content) {
@@ -85,8 +91,12 @@ const RatingForm = ({ state, toggleModal, productId, onSuccess }) => {
       if (userInfo._id === '') return;
 
       const response = await PRODUCT_API.getIsBought(userInfo._id, productId);
+      console.log(
+        '🚀 ~ file: index.js ~ line 94 ~ handle ~ response',
+        response
+      );
 
-      if (response.data) {
+      if (response.data !== null) {
         if (
           response?.orders[0].order_status === 'DONE' &&
           response?.orders[0].doneDate !== ''

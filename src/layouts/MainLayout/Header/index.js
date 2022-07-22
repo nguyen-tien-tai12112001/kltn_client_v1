@@ -447,10 +447,7 @@ const Header = () => {
     }
   };
   const renderUISearch = (arrSearchItem) => {
-    console.log(
-      '🚀 ~ file: index.js ~ line 382 ~ renderUISearch ~ arrSearchItem',
-      arrSearchItem
-    );
+
     return arrSearchItem.length
       ? arrSearchItem.map((item, index) => {
           if (item) {

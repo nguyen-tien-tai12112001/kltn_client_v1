@@ -1,6 +1,6 @@
 export const baseURL = 'https://kltn-api-v1.herokuapp.com/api/v1';
-// export const baseURL = 'http://localhost:7172/api/v1';
 export const ENDPOINT = 'https://kltn-api-v1.herokuapp.com';
+// export const baseURL = 'http://localhost:7172/api/v1';
 // export const ENDPOINT = 'http://localhost:7172';
 
 export const GHN_URL =
