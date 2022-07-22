@@ -11,6 +11,8 @@ import { cartActions } from '../../../../store/cart';
 import { formatNumber, getSalePrice } from '../../../../utils';
 import './style.scss';
 import { commonActions } from '../../../../store/common';
+import { debounce } from 'lodash';
+import { useCallback } from 'react';
 
 const MainInfo = ({ data, avgStar }) => {
   const dispatch = useDispatch();
@@ -23,7 +25,10 @@ const MainInfo = ({ data, avgStar }) => {
   const [mainImage, setMainImage] = useState(data.thumbnail_url);
   const [imageList, setImageList] = useState([]);
   const [disable, setDisable] = useState(false);
-
+  const debouceDisabaleButton = useCallback(
+    debounce((nextValue) => setDisable(!nextValue), 2000),
+    []
+  );
   useEffect(() => {
     (async function () {
       if (!data._id) return;
@@ -104,6 +109,7 @@ const MainInfo = ({ data, avgStar }) => {
 
       (!oldItem && dispatch(cartActions.addToCart(response.data))) ||
         dispatch(cartActions.updateCart(response.data));
+      debouceDisabaleButton(true);
 
       return notification.success({
         placement: 'topRight',
