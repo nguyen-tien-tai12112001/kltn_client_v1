@@ -25,10 +25,7 @@ const MainInfo = ({ data, avgStar }) => {
   const [mainImage, setMainImage] = useState(data.thumbnail_url);
   const [imageList, setImageList] = useState([]);
   const [disable, setDisable] = useState(false);
-  const debouceDisabaleButton = useCallback(
-    debounce((nextValue) => setDisable(!nextValue), 2000),
-    []
-  );
+
   useEffect(() => {
     (async function () {
       if (!data._id) return;
@@ -54,6 +51,15 @@ const MainInfo = ({ data, avgStar }) => {
     if (!value) {
       setDisable(true);
     }
+    if (Number.isInteger(value)) {
+      setQuantity(1);
+      return notification.warning({
+        placement: 'topRight',
+        message: 'Quantity Products',
+        description: 'Product quantity is not decimal!',
+        duration: 3,
+      });
+    }
     setDisable(false);
     if (value > data.stock) {
       notification.warning({
@@ -64,7 +70,7 @@ const MainInfo = ({ data, avgStar }) => {
     } else if (value < 1) {
       notification.warning({
         message: 'Quantity Products',
-        description: 'Số lượng không thể nhỏ hơn 1',
+        description: 'Quantity cannot be less than 1',
         duration: 3,
       });
     }
@@ -109,7 +115,6 @@ const MainInfo = ({ data, avgStar }) => {
 
       (!oldItem && dispatch(cartActions.addToCart(response.data))) ||
         dispatch(cartActions.updateCart(response.data));
-      debouceDisabaleButton(true);
 
       return notification.success({
         placement: 'topRight',

@@ -1,26 +1,27 @@
-import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { Col, InputNumber, Modal, notification, Row } from "antd";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import CART_API from "../../../api/cart";
-import { STATUS_FAIL } from "../../../constants/api";
-import { cartActions } from "../../../store/cart";
-import { formatNumber, getSalePrice } from "../../../utils";
-import "./style.scss";
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { Col, InputNumber, Modal, notification, Row } from 'antd';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import CART_API from '../../../api/cart';
+import { STATUS_FAIL } from '../../../constants/api';
+import { cartActions } from '../../../store/cart';
+import { formatNumber, getSalePrice } from '../../../utils';
+import './style.scss';
 
 const ProductCart = ({ data, checkedAll, handleChecking }) => {
   const dispatch = useDispatch();
 
   const [checkedProduct, setCheckedProduct] = useState(false);
+  const [defaultValue, setDefaultValue] = useState(data.quantity);
 
   const confirmDelete = () => {
     Modal.confirm({
-      title: "Confirm",
+      title: 'Confirm',
       icon: <ExclamationCircleOutlined />,
-      content: "Bạn có muốn xóa sản phẩm khỏi giỏ hàng?",
-      okText: "Xác nhận",
-      cancelText: "Hủy",
+      content: 'Bạn có muốn xóa sản phẩm khỏi giỏ hàng?',
+      okText: 'Xác nhận',
+      cancelText: 'Hủy',
       onOk: () => {
         CART_API.removeCartItems({
           _ids: [data._id],
@@ -28,16 +29,16 @@ const ProductCart = ({ data, checkedAll, handleChecking }) => {
           .then((response) => {
             if (response.status === STATUS_FAIL)
               return notification.error({
-                placement: "topRight",
-                message: "Can not remove cart item!",
+                placement: 'topRight',
+                message: 'Can not remove cart item!',
                 description: response.message,
                 duration: 3,
               });
 
             dispatch(cartActions.removeCartItem(data._id));
             notification.success({
-              placement: "topRight",
-              message: "Successfully!",
+              placement: 'topRight',
+              message: 'Successfully!',
               description: response.message,
               duration: 3,
             });
@@ -53,6 +54,15 @@ const ProductCart = ({ data, checkedAll, handleChecking }) => {
     if (value === 0) {
       return confirmDelete();
     }
+    if (Number.isInteger(value)) {
+      setDefaultValue(data.quantity);
+      return notification.warning({
+        placement: 'topRight',
+        message: 'Can not update cart!',
+        description: 'Product quantity is not decimal!',
+        duration: 3,
+      });
+    }
 
     updateCartItem({
       ...data,
@@ -66,8 +76,8 @@ const ProductCart = ({ data, checkedAll, handleChecking }) => {
       const response = await CART_API.addToCart(itemData);
       if (response.status === STATUS_FAIL)
         return notification.error({
-          placement: "topRight",
-          message: "Can not update cart!",
+          placement: 'topRight',
+          message: 'Can not update cart!',
           description: response.message,
           duration: 3,
         });
@@ -75,15 +85,15 @@ const ProductCart = ({ data, checkedAll, handleChecking }) => {
       dispatch(cartActions.updateCart(itemData));
 
       return notification.success({
-        placement: "topRight",
-        message: "Successfully!",
+        placement: 'topRight',
+        message: 'Successfully!',
         description: response.message,
         duration: 3,
       });
     } catch (error) {
       return notification.error({
-        placement: "topRight",
-        message: "Can not update cart!",
+        placement: 'topRight',
+        message: 'Can not update cart!',
         description: error.message,
         duration: 3,
       });
@@ -180,7 +190,7 @@ const ProductCart = ({ data, checkedAll, handleChecking }) => {
                       <InputNumber
                         min={1}
                         max={data.product?.stock}
-                        defaultValue={data.quantity}
+                        defaultValue={defaultValue}
                         onChange={handleChangeQty}
                       />
                     </div>
