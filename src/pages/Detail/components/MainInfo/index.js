@@ -51,7 +51,7 @@ const MainInfo = ({ data, avgStar }) => {
     if (!value) {
       setDisable(true);
     }
-    if (Number.isInteger(value)) {
+    if (!Number.isInteger(value)) {
       setQuantity(1);
       return notification.warning({
         placement: 'topRight',

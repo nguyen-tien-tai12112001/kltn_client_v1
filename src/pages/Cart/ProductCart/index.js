@@ -54,7 +54,7 @@ const ProductCart = ({ data, checkedAll, handleChecking }) => {
     if (value === 0) {
       return confirmDelete();
     }
-    if (Number.isInteger(value)) {
+    if (!Number.isInteger(value)) {
       setDefaultValue(data.quantity);
       return notification.warning({
         placement: 'topRight',
